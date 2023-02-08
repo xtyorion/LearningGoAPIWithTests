@@ -11,7 +11,7 @@ import (
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
-	GetLeague() []Player
+	GetLeague() League
 }
 
 // Player stores a name with a number of wins.
@@ -69,7 +69,6 @@ func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
 	fmt.Fprint(w, score)
 }
 
-// ex. curl -X POST http://localhost:5000/players/Pepper
 func (p *PlayerServer) processWin(w http.ResponseWriter, player string) {
 	p.store.RecordWin(player)
 	w.WriteHeader(http.StatusAccepted)
